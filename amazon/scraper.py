@@ -25,7 +25,7 @@ def add_plugin(executable_path):
     options.add_argument("--disable-gpu")
     options.add_argument("--headless")
     options.add_argument('--disable-blink-features=AutomationControlled')
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(ChromeDriverManger().install(), options=options)
     print("test")
     print("test2")
     return driver
