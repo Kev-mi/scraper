@@ -5,7 +5,7 @@ import threading
 
 
 def thread_1():
-    category_list = ["Amazon Devices & Accessories"]
+    category_list = ["Baby"]
     category = category_list[0]
     scraping_thread_1(websites.BASE_URL, category, "1")
     #scraping_thread_1(websites.BASE_URL, category, "1")
