@@ -17,9 +17,9 @@ import argparse
 
 def add_plugin(executable_path):
     options = Options()
-    option.add_extension("testing.crx")
+    options.add_extension("testing.crx")
     options.headless = True
-    driver = webdriver.Chrome(ChromeDriverManger().install(), options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     return driver
 
 
