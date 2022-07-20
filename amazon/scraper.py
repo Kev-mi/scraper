@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
-
+from pyvirtualdisplay import Display
 import argparse
 
 # ROI
@@ -19,9 +19,10 @@ import argparse
 
 
 def add_plugin(executable_path):
+    display = Display(visible=0, size=(800,600))
     options = Options()
     options.add_extension("testing.crx")
-    options.headless = True
+    options.headless = False
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     return driver
 
@@ -29,6 +30,8 @@ def add_plugin(executable_path):
 def scraping_thread_1(website_url, amazon_category, thread_nr):
     # driver path for windows below
     #driver_path = "C:\chromedriver.exe"
+    # driver path for linux below 
+    # driver_path = 
     driver = add_plugin(driver_path)
     driver.implicitly_wait(10)
     driver.get(website_url)
