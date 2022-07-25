@@ -4,11 +4,11 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+import argparse
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
-from pyvirtualdisplay import Display
-import argparse
-
 # ROI
 
 #def save():
@@ -19,7 +19,7 @@ import argparse
 
 
 def add_plugin(executable_path):
-    display = Display(visible=0, size=(800,600))
+    #extension = 'C:/0.9.39_0.crx'
     options = Options()
     options.add_extension("testing.crx")
     options.headless = False
@@ -27,11 +27,14 @@ def add_plugin(executable_path):
     return driver
 
 
+def write_to_txt_file_thread_1(string):
+    with open('C:/Users/kevin/OneDrive/Skrivbord/testfolder/test.txt', "a", encoding='utf-8') as text_file:
+        text_file.write(string)
+
+
+
 def scraping_thread_1(website_url, amazon_category, thread_nr):
-    # driver path for windows below
-    #driver_path = "C:\chromedriver.exe"
-    # driver path for linux below 
-    # driver_path = 
+    driver_path = "C:chromedriver.exe"
     driver = add_plugin(driver_path)
     driver.implicitly_wait(10)
     driver.get(website_url)
@@ -46,12 +49,14 @@ def scraping_thread_1(website_url, amazon_category, thread_nr):
         try:
             link_selected_2 = driver.find_element(By.XPATH, '//*[@id="scxt-stock-btn"]')
             link_selected_2.click()
-            print("start3")
             driver.switch_to.frame(driver.find_element(By.XPATH, '//*[@id="scxt-widget"]/iframe'))
             #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="scxt-widget"]/iframe')))
             time.sleep(5)
             testing = driver.find_element(By.CLASS_NAME, "counts-total").text
             print(testing)
+            testing2 = driver.find_element(By.TAG_NAME, "tbody").text
+            print(testing2)
+            write_to_txt_file_thread_1(testing + "\n" + testing2 + "\n")
         except NoSuchElementException:
             print("Not in stock")
             driver.get(current_url)
@@ -63,4 +68,4 @@ def scraping_thread_1(website_url, amazon_category, thread_nr):
         #driver.switch_to.parent_frame()
         #driver.switch_to.default_content()
         #driver.back()
-            
+    
