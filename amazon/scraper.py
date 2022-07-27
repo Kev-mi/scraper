@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
+from pyvirtualdisplay import Display
 # ROI
 
 #def save():
@@ -19,7 +20,8 @@ from selenium.common.exceptions import ElementNotInteractableException
 
 
 def add_plugin(executable_path):
-    #extension = 'C:/0.9.39_0.crx'
+    display = Displa(visible=0, size(800, 600))
+    display.start()
     options = Options()
     options.add_extension("testing.crx")
     options.headless = False
